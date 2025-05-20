@@ -1,0 +1,20 @@
+name: Run Silver-Pohlig-Hellman
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Build Docker image
+        run: docker build -t sph .
+
+      - name: Run container with example args
+        run: docker run sph --alpha 170094104 --beta 13304808 --modulo 793429577
